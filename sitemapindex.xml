@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://haschischa.github.io/blog/authors/jan-novotny.xml</loc>
-  <lastmod>2020-05-11T14:16:00Z</lastmod>
+  <lastmod>2020-05-11T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/authors/roberto-alsina.xml</loc>
@@ -43,15 +43,15 @@
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/rss.xml</loc>
-  <lastmod>2020-05-11T14:16:00Z</lastmod>
+  <lastmod>2020-05-11T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/sitemap.xml</loc>
-  <lastmod>2020-05-11T14:40:00Z</lastmod>
+  <lastmod>2020-05-11T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/sv/authors/jan-novotny.xml</loc>
-  <lastmod>2020-05-11T14:16:00Z</lastmod>
+  <lastmod>2020-05-11T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/sv/authors/roberto-alsina.xml</loc>
@@ -87,6 +87,6 @@
  </sitemap>
  <sitemap>
   <loc>https://haschischa.github.io/blog/sv/rss.xml</loc>
-  <lastmod>2020-05-11T14:16:00Z</lastmod>
+  <lastmod>2020-05-11T14:47:00Z</lastmod>
  </sitemap>
 </sitemapindex>
