@@ -19,7 +19,7 @@
  </url>
  <url>
   <loc>https://haschischa.github.io/blog/archive.html</loc>
-  <lastmod>2020-05-11T14:47:00Z</lastmod>
+  <lastmod>2020-05-11T15:02:00Z</lastmod>
  </url>
  <url>
   <loc>https://haschischa.github.io/blog/authors/</loc>
@@ -146,6 +146,10 @@
   <lastmod>2020-05-10T14:18:00Z</lastmod>
  </url>
  <url>
+  <loc>https://haschischa.github.io/blog/posts/partiledare/</loc>
+  <lastmod>2020-05-11T15:02:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://haschischa.github.io/blog/posts/post-two/</loc>
   <lastmod>2020-05-11T14:47:00Z</lastmod>
  </url>
@@ -167,7 +171,7 @@
  </url>
  <url>
   <loc>https://haschischa.github.io/blog/sv/archive.html</loc>
-  <lastmod>2020-05-11T14:47:00Z</lastmod>
+  <lastmod>2020-05-11T15:02:00Z</lastmod>
  </url>
  <url>
   <loc>https://haschischa.github.io/blog/sv/authors/</loc>
@@ -297,6 +301,11 @@
   <loc>https://haschischa.github.io/blog/sv/posts/my-first-post/</loc>
   <lastmod>2020-05-10T14:18:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://haschischa.github.io/blog/posts/my-first-post/" />
+ </url>
+ <url>
+  <loc>https://haschischa.github.io/blog/sv/posts/partiledare/</loc>
+  <lastmod>2020-05-11T15:02:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="en" href="https://haschischa.github.io/blog/posts/partiledare/" />
  </url>
  <url>
   <loc>https://haschischa.github.io/blog/sv/posts/post-two/</loc>
