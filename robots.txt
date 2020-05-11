@@ -1,0 +1,4 @@
+Sitemap: https://haschischa.github.io/blog/sitemapindex.xml
+
+User-Agent: *
+Host: haschischa.github.io

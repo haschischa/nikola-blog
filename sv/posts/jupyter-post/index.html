@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html prefix="" lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Jupyter post | Jans blog</title>
+<link href="../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (sv)" href="../../rss.xml">
+<link rel="canonical" href="https://haschischa.github.io/blog/sv/posts/jupyter-post/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Jan Novotny">
+<link rel="prev" href="../my-first-post/" title="My first post" type="text/html">
+<link rel="next" href="../addition/" title="Addition" type="text/html">
+<meta property="og:site_name" content="Jans blog">
+<meta property="og:title" content="Jupyter post">
+<meta property="og:url" content="https://haschischa.github.io/blog/sv/posts/jupyter-post/">
+<meta property="og:description" content="Jupyter experimenting
+
+
+
+
+
+
+In [26]:
+
+    
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.io as pio
+import chart_studio as cs
+import numpy as np
+import">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-05-10T20:30:43+02:00">
+<link rel="alternate" hreflang="en" href="../../../posts/jupyter-post/">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Hoppa till huvudinnehåll</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+        <div class="sidebar-item">
+            <p>A reserved <a href="https://getnikola.com" target="_blank">Nikola</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> for Jekyll,
+            ported to Nikola by <a href="https://twitter.com/ralsina" target="_blank">@ralsina</a>.</p>
+        </div>
+        
+    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../archive.html">Arkiv</a>
+        <a class="sidebar-nav-item" href="../../categories/">Taggar</a>
+        <a class="sidebar-nav-item" href="../../rss.xml">RSS-flöde</a>
+    
+    
+    </nav>
+</div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h3 id="brand" class="masthead-title">
+      <a href="https://haschischa.github.io/blog/sv/" title="Jans blog" rel="home">Jans blog</a>
+    </h3>
+
+        </div>
+      </div>
+
+      <div class="container content" id="content">
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="post-title p-name entry-title" itemprop="headline name"><a href="." class="u-url">Jupyter post</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">Jan Novotny</span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="post-date published dt-published" datetime="2020-05-10T20:30:43+02:00" itemprop="datePublished" title="2020-05-10 20:30">2020-05-10 20:30</time></a></p>
+                <p class="commentline">
+        
+
+
+        </p>
+</div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Jupyter experimenting</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
+<span class="kn">import</span> <span class="nn">chart_studio</span> <span class="k">as</span> <span class="nn">cs</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="kn">import</span> <span class="n">relativedelta</span>                     
+<span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="k">as</span> <span class="nn">tls</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+
+<span class="n">party_leaders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'swedish_party_leaders.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">party_leaders</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>     name surname  birth_date death_date               party party_abr  \
+0  Stefan  Löfven  1957-07-21        NaN  Socialdemokraterna         S   
+1   Håkan  Juholt  1962-09-16        NaN  Socialdemokraterna         S   
+2    Mona  Sahlin  1957-03-09        NaN  Socialdemokraterna         S   
+
+  assumed_office left_office sex city region  
+0     2012-01-27         NaN   m  NaN    NaN  
+1     2011-03-25  2012-01-21   m  NaN    NaN  
+2     2007-03-17  2011-03-25   k  NaN    NaN  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">transform_date_string_to_datetime_object</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    :param string: format 'YYYY-MM-DD'</span>
+<span class="sd">    :return: datetime</span>
+<span class="sd">    '''</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">entry</span>
+
+<span class="n">party_leaders</span><span class="p">[[</span><span class="s1">'death_date'</span><span class="p">,</span>
+               <span class="s1">'assumed_office'</span><span class="p">,</span>
+               <span class="s1">'left_office'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="p">[[</span><span class="s1">'death_date'</span><span class="p">,</span>
+                                                <span class="s1">'assumed_office'</span><span class="p">,</span>
+                                                <span class="s1">'left_office'</span><span class="p">]]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+<span class="c1"># transforming date strings to datetime objects</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'birth_date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                              <span class="n">transform_date_string_to_datetime_object</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'birth_date'</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'death_date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                              <span class="n">transform_date_string_to_datetime_object</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'death_date'</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'left_office'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                              <span class="n">transform_date_string_to_datetime_object</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'left_office'</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                              <span class="n">transform_date_string_to_datetime_object</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># calculating age when party leader assumed office and time in office in years</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'age_when_assumed_office'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                                           <span class="n">relativedelta</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">],</span>
+                                                         <span class="n">row</span><span class="p">[</span><span class="s1">'birth_date'</span><span class="p">])</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+                                           <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'years_in_office'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> \
+                                          <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">relativedelta</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'left_office'</span><span class="p">],</span>
+                                                         <span class="n">row</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">])</span><span class="o">.</span><span class="n">years</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> \
+                                           <span class="n">relativedelta</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'left_office'</span><span class="p">],</span>
+                                                         <span class="n">row</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">])</span><span class="o">.</span><span class="n">months</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                                           <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># concatenate first name and surname</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'full_name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s1">'surname'</span><span class="p">],</span>
+                                                 <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># concatenate full name and years in office</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'full_name_years_in_office'</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_leaders</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>\
+                                            <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">'full_name'</span><span class="p">]</span> <span class="o">+</span> \
+                                                        <span class="s1">' ('</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'assumed_office'</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> \
+                                                         <span class="s1">' - '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'left_office'</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s1">')'</span> <span class="p">,</span>
+                                                 <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># order by political affiliation (left-wing to right-wing)</span>
+<span class="n">party_leaders</span><span class="p">[</span><span class="s1">'party_abr'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">party_leaders</span><span class="p">[</span><span class="s1">'party_abr'</span><span class="p">],</span>
+                                            <span class="p">[</span><span class="s1">'V'</span><span class="p">,</span> <span class="s1">'S'</span><span class="p">,</span> <span class="s1">'Mp'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'L'</span><span class="p">,</span> <span class="s1">'M'</span><span class="p">,</span> <span class="s1">'Kd'</span><span class="p">,</span> <span class="s1">'Sd'</span> <span class="p">])</span>
+<span class="n">party_leaders</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'party_abr'</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">party_leaders</span><span class="p">,</span>
+                 <span class="n">title</span><span class="o">=</span><span class="s1">'Svenska partiledare genom århundradena'</span><span class="p">,</span>
+                 <span class="n">x</span><span class="o">=</span><span class="s1">'age_when_assumed_office'</span><span class="p">,</span>
+                 <span class="n">y</span><span class="o">=</span><span class="s1">'years_in_office'</span><span class="p">,</span>
+                 <span class="n">hover_name</span><span class="o">=</span><span class="s1">'full_name_years_in_office'</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">'party_abr'</span><span class="p">,</span>
+                 <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s1">'L'</span><span class="p">:</span> <span class="s1">'#99ccff'</span><span class="p">,</span>
+                                     <span class="s1">'M'</span><span class="p">:</span> <span class="s1">'#0066ff'</span><span class="p">,</span>
+                                     <span class="s1">'S'</span><span class="p">:</span> <span class="s1">'#ff3300'</span><span class="p">,</span>
+                                     <span class="s1">'Mp'</span><span class="p">:</span> <span class="s1">'#408000'</span><span class="p">,</span>
+                                     <span class="s1">'Kd'</span><span class="p">:</span> <span class="s1">'#000099'</span><span class="p">,</span>
+                                     <span class="s1">'C'</span><span class="p">:</span> <span class="s1">'#8cff66'</span><span class="p">,</span>
+                                     <span class="s1">'V'</span><span class="p">:</span> <span class="s1">'#990000'</span><span class="p">,</span>
+                                     <span class="s1">'Sd'</span> <span class="p">:</span> <span class="s1">'#ffff00'</span>
+                                     <span class="p">},</span>
+                 <span class="c1">#symbol='sex',</span>
+                 <span class="c1">#symbol_map={'m':'circle',</span>
+                 <span class="c1">#            'k':'diamond'},</span>
+                 <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">'age_when_assumed_office'</span><span class="p">:</span><span class="sa">u</span><span class="s1">'Ålder vid tillträde'</span><span class="p">,</span>
+                         <span class="s1">'years_in_office'</span><span class="p">:</span><span class="s1">'Antal år i ämbetet'</span><span class="p">,</span>
+                         <span class="s1">'party_abr'</span><span class="p">:</span><span class="s1">'Parti'</span><span class="p">}</span>
+                 <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                              <span class="n">symbol</span><span class="o">=</span> <span class="s1">'circle'</span><span class="p">,</span>
+                              <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                        <span class="n">color</span><span class="o">=</span><span class="s1">'DarkSlateGrey'</span><span class="p">),</span>
+                              <span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">),</span>
+                  <span class="n">selector</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">'markers'</span><span class="p">)</span>
+                  <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+        
+        
+            <div id="835cffc9-7c3d-4171-87c6-37fba159d693" class="plotly-graph-div" style="height:525px; width:100%;"></div>
+            <script type="text/javascript">
+                require(["plotly"], function(Plotly) {
+                    window.PLOTLYENV=window.PLOTLYENV || {};
+                    
+                if (document.getElementById("835cffc9-7c3d-4171-87c6-37fba159d693")) {
+                    Plotly.newPlot(
+                        '835cffc9-7c3d-4171-87c6-37fba159d693',
+                        [{"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=V<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["C.H. Hermansson (1964 - 1975)", "Zeth H\u00f6glund II (1919 - 1924)", "Karl Kilbom II (1921 - 1923)", "Ernst \u00c5str\u00f6m (1918 - 1918)", "Karl Kilbom I (1918 - 1918)", "Carl Winberg (1917 - 1917)", "Zeth H\u00f6glund I (1917 - 1917)", "Karl Kilbom III (1924 - 1929)", "Nils Flyg (1924 - 1929)", "Hilding Hagberg (1951 - 1964)", "Lars Werner (1975 - 1993)", "Gudrun Schyman (1993 - 2003)", "Ulla Hoffman (2003 - 2004)", "Lars Ohly (2004 - 2012)", "Jonas Sj\u00f6stedt (2012 - 2020)", "Sven Linderot (1929 - 1951)"], "legendgroup": "V", "marker": {"color": "#990000", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "V", "showlegend": true, "type": "scatter", "x": [46, 34, 35, 41, 32, 49, 32, 38, 32, 51, 39, 44, 60, 47, 47, 39], "xaxis": "x", "y": [11.17, 5.0, 2.0, 0.92, 0.92, 0.92, 0.92, 5.0, 5.0, 13.0, 17.75, 10.0, 1.0, 7.83, 8.33, 22.0], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=S<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["G\u00f6ran Persson (1996 - 2007)", "Claes Tholin (1896 - 1907)", "Mona Sahlin (2007 - 2011)", "Ingvar Carlsson (1986 - 1996)", "H\u00e5kan Juholt (2011 - 2012)", "Tage Erlander (1946 - 1969)", "Per Albin Hansson (1925 - 1946)", "Hjalmar Branting (1907 - 1920)", "Stefan L\u00f6fven (2012 - 2020)", "Olof Palme (1969 - 1986)"], "legendgroup": "S", "marker": {"color": "#ff3300", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "S", "showlegend": true, "type": "scatter", "x": [47, 35, 50, 51, 48, 45, 39, 46, 54, 42], "xaxis": "x", "y": [11.0, 11.0, 4.0, 10.0, 0.75, 22.92, 21.67, 13.75, 8.25, 16.33], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=Mp<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Per Bolund (2019 - 2020)", "Isabella L\u00f6vin (2016 - 2020)", "Matz Hammarstr\u00f6m (2000 - 2002)", "\u00c5sa Romson (2011 - 2016)", "Margareta Gisselberg (1990 - 1991)", "Gustav Fridolin (2011 - 2019)", "Ragnhild Pohanka (1984 - 1986)", "Per Gahrton (1984 - 1985)", "Eva Go\u00ebs (1986 - 1988)", "Fiona Bj\u00f6rling (1988 - 1990)", "Birger Schlaug I (1985 - 1988)", "Jan Axelsson (1990 - 1992)", "Marianne Samuelsson (1992 - 1999)", "Birger Schlaug II (1992 - 2000)", "Lotta Hedstr\u00f6m (1999 - 2002)", "Peter Eriksson (2002 - 2011)", "Maria Wetterstrand (2002 - 2011)", "Anders Nordin (1988 - 1990)"], "legendgroup": "Mp", "marker": {"color": "#408000", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "Mp", "showlegend": true, "type": "scatter", "x": [47, 53, 40, 39, 51, 28, 52, 41, 38, 44, 36, 51, 46, 43, 43, 43, 28, 39], "xaxis": "x", "y": [1.0, 3.92, 1.92, 4.92, 1.17, 7.92, 1.92, 1.25, 2.33, 1.67, 2.92, 1.83, 7.0, 8.08, 2.92, 9.0, 9.0, 1.67], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=C<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Olof Johansson (1987 - 1998)", "Thorbj\u00f6rn F\u00e4lldin (1971 - 1985)", "Annie L\u00f6\u00f6f (2011 - 2020)", "Maud Olofsson (2001 - 2011)", "Lennart Dal\u00e9us (1998 - 2001)", "Karin S\u00f6der (1985 - 1987)", "Johan Anderson i Rakl\u00f6sen (1920 - 1924)", "Axel Pehrsson (1934 - 1949)", "Olof Olsson i Kullenbergstorp (1929 - 1934)", "Johan Johansson i K\u00e4lkebo (1924 - 1928)", "Gunnar Hedlund (1949 - 1971)", "Erik Eriksson i Spraxkya (1916 - 1919)"], "legendgroup": "C", "marker": {"color": "#8cff66", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "C", "showlegend": true, "type": "scatter", "x": [49, 45, 28, 45, 52, 57, 53, 50, 69, 57, 48, 51], "xaxis": "x", "y": [11.42, 14.5, 8.58, 10.5, 2.58, 1.0, 4.0, 15.0, 5.42, 4.0, 22.0, 3.0], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=L<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Felix Hamrin (1934 - 1935)", "Gustaf Andersson i Rasj\u00f6n (1935 - 1944)", "Bertil Ohlin (1944 - 1967)", "Sven Wed\u00e9n (1967 - 1969)", "Ola Ullsten (1978 - 1983)", "Per Ahlmark (1975 - 1978)", "Maria Leissner (1995 - 1997)", "Lars Leijonborg (1997 - 2007)", "Jan Bj\u00f6rklund (2007 - 2019)", "Nyamko Sabuni (2019 - 2020)", "Gunnar Hel\u00e9n (1969 - 1975)", "Bengt Westerberg (1983 - 1995)"], "legendgroup": "L", "marker": {"color": "#99ccff", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "L", "showlegend": true, "type": "scatter", "x": [59, 50, 45, 53, 46, 36, 39, 47, 45, 50, 51, 40], "xaxis": "x", "y": [0.42, 9.67, 22.67, 2.25, 5.5, 2.25, 2.08, 10.42, 11.75, 0.83, 6.0, 11.33], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=M<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Jarl Hjalmarson (1950 - 1961)", "Hugo Tamm (1907 - 1907)", "Gustaf Fredrik \u00d6stberg II (1908 - 1912)", "Arvid Lindman (1912 - 1935)", "G\u00f6sta Bagge (1935 - 1944)", "Gunnar Heckscher (1961 - 1965)", "Fritiof Dom\u00f6 (1944 - 1950)", "Gustaf Fredrik \u00d6stberg I (1908 - 1912)", "Ulf Kristersson (2017 - 2020)", "G\u00f6sta Bohman (1970 - 1981)", "Axel Svedelius (1905 - 1906)", "Bo Lundgren (1999 - 2003)", "Ulf Adelsohn (1981 - 1986)", "Fredrik Reinfeldt (2003 - 2015)", "Carl Bildt (1986 - 1999)", "Anna Kinberg Batra (2015 - 2017)", "Yngve Holmberg (1965 - 1970)"], "legendgroup": "M", "marker": {"color": "#0066ff", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "M", "showlegend": true, "type": "scatter", "x": [45, 66, 60, 49, 53, 51, 54, 60, 53, 59, 68, 52, 40, 38, 37, 44, 39], "xaxis": "x", "y": [11.0, 0.92, 4.0, 23.42, 8.58, 4.0, 6.0, 4.0, 2.58, 10.92, 1.92, 4.08, 4.75, 11.17, 13.0, 2.67, 5.83], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=Kd<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Birger Ekstedt (1964 - 1972)", "Alf Svensson (1973 - 2004)", "G\u00f6ran H\u00e4gglunf (2004 - 2015)", "Ebba Busch (2015 - 2020)"], "legendgroup": "Kd", "marker": {"color": "#000099", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "Kd", "showlegend": true, "type": "scatter", "x": [42, 34, 45, 28], "xaxis": "x", "y": [8.5, 30.67, 11.0, 5.0], "yaxis": "y"}, {"hovertemplate": "<b>%{hovertext}</b><br><br>Parti=Sd<br>\u00c5lder vid tilltr\u00e4de=%{x}<br>Antal \u00e5r i \u00e4mbetet=%{y}<extra></extra>", "hovertext": ["Jimmie \u00c5kesson (2005 - 2020)", "Mikael Jansson (1995 - 2005)", "Anders Klarstr\u00f6m (1989 - 1995)"], "legendgroup": "Sd", "marker": {"color": "#ffff00", "line": {"color": "DarkSlateGrey", "width": 2}, "opacity": 0.95, "size": 15, "symbol": "circle"}, "mode": "markers", "name": "Sd", "showlegend": true, "type": "scatter", "x": [25, 29, 23], "xaxis": "x", "y": [15.0, 10.17, 5.67], "yaxis": "y"}],
+                        {"legend": {"title": {"text": "Parti"}, "tracegroupgap": 0}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": "Svenska partiledare genom \u00e5rhundradena"}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "\u00c5lder vid tilltr\u00e4de"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Antal \u00e5r i \u00e4mbetet"}}},
+                        {"responsive": true}
+                    ).then(function(){
+                            
+var gd = document.getElementById('835cffc9-7c3d-4171-87c6-37fba159d693');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })
+                };
+                });
+            </script>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">chart_studio</span>
+<span class="n">username</span> <span class="o">=</span> <span class="s1">'haschischa'</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s1">'esXQhgTeCu2sZqSr4k5N'</span>
+<span class="n">chart_studio</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">set_credentials_file</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">chart_studio.plotly</span> <span class="k">as</span> <span class="nn">py</span>
+<span class="n">py</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="s1">'party_leaders_swe'</span><span class="p">,</span> <span class="n">auto_open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'https://plotly.com/~haschischa/1/'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chart_studio</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">get_embed</span><span class="p">(</span><span class="s1">'https://plotly.com/~haschischa/1/'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'&lt;iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~haschischa/1.embed" height="525" width="100%"&gt;&lt;/iframe&gt;'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">&lt;</span><span class="n">iframe</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"igraph"</span> <span class="n">scrolling</span><span class="o">=</span><span class="s2">"no"</span> <span class="n">style</span><span class="o">=</span><span class="s2">"border:none;"</span> 
+<span class="n">seamless</span><span class="o">=</span><span class="s2">"seamless"</span> <span class="n">src</span><span class="o">=</span><span class="s2">"https://plotly.com/~haschischa/1.embed"</span> <span class="n">height</span><span class="o">=</span><span class="s2">"525"</span> <span class="n">width</span><span class="o">=</span><span class="s2">"200%"</span><span class="o">&gt;&lt;/</span><span class="n">iframe</span><span class="o">&gt;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>'<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~haschischa/1.embed" height="525" width="100%"></iframe>'</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../my-first-post/" rel="prev" title="My first post">Föregående inlägg</a>
+            </li>
+            <li class="next">
+                <a href="../addition/" rel="next" title="Addition">Nästa inlägg</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Kommentarer</h2>
+        
+        
+
+
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><footer id="footer"><p>Contents © 2020         <a href="mailto:jan.af.novotny@gmail.com">Jan Novotny</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+    
+            <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("sv");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
